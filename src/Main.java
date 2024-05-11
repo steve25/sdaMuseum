@@ -30,24 +30,23 @@ public class Main {
     private static void adminPanel() {
         int result = Output.makeMenu("Tickets sold - all time", "Ticket sold - day", "Ticket sold - day (percentage)", "Cancel");
         System.out.println();
-        while (true) {
 
             switch (result) {
                 case 1:
                     System.out.println("Tickets sold: " + museum.getTicketCountAllTimes());
                     System.out.println();
-                    return;
+                    break;
                 case 2:
                     System.out.println(Output.printTicketsSoldDay(museum));
                     System.out.println();
-                    return;
+                    break;
                 case 3:
                     System.out.println(Output.printTicketsSoldDayPercentage(museum));
                     System.out.println();
-                    return;
+                    break;
                 default:
-                    return;
-            }
+                    break;
+
         }
 
     }
