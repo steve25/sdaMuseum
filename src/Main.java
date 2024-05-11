@@ -8,13 +8,13 @@ public class Main {
     public static void main(String[] args) {
         Output.printWelcomeMessage();
         menuLogic();
-
     }
 
     public static void menuLogic() {
         int result;
         while (true) {
             result = Output.makeMenu("Buy a ticket", "Exit");
+            System.out.println();
 
             switch (result) {
                 case 1:
@@ -38,6 +38,7 @@ public class Main {
 
         int maxTicket = Math.min(availableTicket, 3);
         int ticketCount = Output.intInputValidationBetween("How many tickets you want to buy? (min: 1, max: " + maxTicket + "): ", "Enter a valid number: ", 1, maxTicket);
+        System.out.println();
 
         museum.setTicketCount(ticketDate, ticketCount);
     }

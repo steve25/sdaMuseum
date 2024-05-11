@@ -15,14 +15,10 @@ public class Museum {
             int nullIndex = findNextNull();
             this.localDate[nullIndex] = date;
             this.ticketCountPerDay[nullIndex] = ticketCount;
-            showDates();
             return;
         }
 
         this.ticketCountPerDay[dateIndex] += ticketCount;
-
-        showDates();
-
     }
 
     private void showDates() {
