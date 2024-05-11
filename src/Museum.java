@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 
@@ -6,10 +7,14 @@ public class Museum {
     private final int ticketLimitPerDay = 10;
     private final LocalDate[] localDate = new LocalDate[(int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2))];
     private final int[] ticketCountPerDay = new int[(int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2))];
+    private int ticketCountAllTimes = 0;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public void setTicketCount(LocalDate date, int ticketCount) {
 
         int dateIndex = findIndex(date);
+
+        this.ticketCountAllTimes += ticketCount;
 
         if (dateIndex == -1) {
             int nullIndex = findNextNull();
@@ -19,6 +24,25 @@ public class Museum {
         }
 
         this.ticketCountPerDay[dateIndex] += ticketCount;
+    }
+
+    public int getTicketCountAllTimes() {
+        return ticketCountAllTimes;
+    }
+
+    public String getTicketCountPerDay(LocalDate date) {
+        int dateIndex = findIndex(date);
+
+        String dateString = date.format(this.formatter);
+
+        int result;
+        if (dateIndex == -1) {
+            result = 0;
+        } else  {
+            result = this.ticketCountPerDay[dateIndex];
+        }
+
+        return dateString + " - " + result + " was sold";
     }
 
     private void showDates() {
@@ -54,6 +78,22 @@ public class Museum {
         if (dateIndex == -1) {
             return this.ticketLimitPerDay;
         }
+
         return this.ticketLimitPerDay - this.ticketCountPerDay[dateIndex];
+    }
+
+    public String getTicketCountPerDayPercentage(LocalDate date) {
+        int dateIndex = findIndex(date);
+
+        String dateString = date.format(this.formatter);
+
+        int result;
+        if (dateIndex == -1) {
+            result =  0;
+        } else {
+            result = (int) (((double) this.ticketCountPerDay[dateIndex] / this.ticketLimitPerDay) * 100);
+        }
+
+        return dateString + " - " + result + "% tickets sold";
     }
 }

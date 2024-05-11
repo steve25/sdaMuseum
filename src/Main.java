@@ -1,5 +1,3 @@
-import console.Output;
-
 import java.time.LocalDate;
 
 public class Main {
@@ -13,17 +11,48 @@ public class Main {
     public static void menuLogic() {
         int result;
         while (true) {
-            result = Output.makeMenu("Buy a ticket", "Exit");
+            result = Output.makeMenu("Buy a ticket", "Admin panel", "Exit");
             System.out.println();
 
             switch (result) {
                 case 1:
                     buyTicket();
                     break;
+                case 2:
+                    adminPanel();
+                    break;
                 default:
                     return;
             }
         }
+    }
+
+    private static void adminPanel() {
+        int result = Output.makeMenu("Tickets sold - all time", "Ticket sold - day", "Ticket sold - day (percentage)", "Cancel");
+        System.out.println();
+
+            switch (result) {
+                case 1:
+                    System.out.println("Tickets sold: " + museum.getTicketCountAllTimes());
+                    System.out.println();
+                    break;
+                case 2:
+                    System.out.println(Output.printTicketsSoldDay(museum));
+                    System.out.println();
+                    break;
+                case 3:
+                    System.out.println(Output.printTicketsSoldDayPercentage(museum));
+                    System.out.println();
+                    break;
+                default:
+                    break;
+
+        }
+
+    }
+
+    public void testBranch() {
+        System.out.println("test");
     }
 
     private static void buyTicket() {
