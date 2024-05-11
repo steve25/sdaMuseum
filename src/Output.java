@@ -1,7 +1,4 @@
-package console;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Output {
@@ -62,4 +59,13 @@ public class Output {
         return intInputValidationBetween("Enter your choice: ", "Please enter a valid number: ", 1, items.length);
     }
 
+    public static String printTicketsSoldDay(Museum museum) {
+        LocalDate date = getTicketDate();
+        return museum.getTicketCountPerDay(date);
+    }
+
+    public static String printTicketsSoldDayPercentage(Museum museum) {
+        LocalDate date = getTicketDate();
+        return museum.getTicketCountPerDayPercentage(date);
+    }
 }
