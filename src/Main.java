@@ -51,6 +51,10 @@ public class Main {
 
     }
 
+    public void testBranch() {
+        System.out.println("test");
+    }
+
     private static void buyTicket() {
         LocalDate ticketDate = Output.getTicketDate();
 
