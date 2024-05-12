@@ -76,10 +76,6 @@ public class Museum {
     }
 
     public double getTicketPrice(int count, int ticketType) {
-        return calculateFinalPrice(ticketType, count);
-    }
-
-    private double calculateFinalPrice(int ticketType, int count) {
 
         String ticketTypeValue = TicketTypes.values()[ticketType - 1].getTicketTypeValue();
         String specialString = ticketTypeValue.substring(0, 1);
