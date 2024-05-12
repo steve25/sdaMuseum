@@ -1,8 +1,11 @@
+package museum;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
 public class Museum {
+
     private final int ticketLimitPerDay = 10;
     private final double ticketPrice = 5;
     private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2));
@@ -11,7 +14,6 @@ public class Museum {
     private int ticketCountAllTimes = 0;
 
     public void setTicketCount(LocalDate date, int ticketCount) {
-
         int dateIndex = findIndex(date);
 
         this.ticketCountAllTimes += ticketCount;
@@ -36,19 +38,10 @@ public class Museum {
         return dateIndex == -1 ? 0 : this.ticketCountPerDay[dateIndex];
     }
 
-
     public double getTicketCountPerDayPercentage(LocalDate date) {
         int dateIndex = findIndex(date);
 
         return dateIndex == -1 ? 0 : ((double) this.ticketCountPerDay[dateIndex] / this.ticketLimitPerDay) * 100;
-    }
-
-    private void showDates() {
-        for (int i = 0; i < this.localDate.length; i++) {
-            if (this.localDate[i] != null) {
-                System.out.println(this.localDate[i] + " - " + this.ticketCountPerDay[i]);
-            }
-        }
     }
 
     private int findIndex(LocalDate date) {

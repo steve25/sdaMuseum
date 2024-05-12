@@ -1,3 +1,5 @@
+package museum;
+
 public enum TicketTypes {
     REGULAR("p100"),
     HEALTH_DISORDERS("p50"),
