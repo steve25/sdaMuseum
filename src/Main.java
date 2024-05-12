@@ -54,7 +54,7 @@ public class Main {
         int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
         if (availableTicket == 0) {
-            System.out.println("Sorry, there are no available tickets for this date.");
+            System.out.println("Sorry, there are no   tickets for this date.");
             return;
         }
 
@@ -63,6 +63,8 @@ public class Main {
         System.out.println();
 
         museum.setTicketCount(ticketDate, ticketCount);
+
+        Output.printMessage("You bought " + ticketCount + " tickets for " + museum.getTicketPrice(ticketCount) + "Eur");
     }
 
     public static LocalDate getTicketDate() {

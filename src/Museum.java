@@ -4,6 +4,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Museum {
     private final int ticketLimitPerDay = 10;
+    private final double ticketPrice = 5;
     private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2));
     private final LocalDate[] localDate = new LocalDate[arraysSize];
     private final int[] ticketCountPerDay = new int[arraysSize];
@@ -74,4 +75,7 @@ public class Museum {
         return dateIndex == -1 ? this.ticketLimitPerDay : this.ticketLimitPerDay - this.ticketCountPerDay[dateIndex];
     }
 
+    public double getTicketPrice(int count) {
+        return ticketPrice * count;
+    }
 }
