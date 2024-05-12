@@ -31,26 +31,25 @@ public class Main {
         int result = Output.makeMenu("Tickets sold - all time", "Ticket sold - day", "Ticket sold - day (percentage)", "Cancel");
         System.out.println();
 
-            switch (result) {
-                case 1:
-                    Output.printMessage("Tickets sold all time: " + museum.getTicketCountAllTimes());
-                    break;
-                case 2:
-                    Output.printMessage(Output.printTicketsSoldDay(museum));
-                    break;
-                case 3:
-                    Output.printMessage(Output.printTicketsSoldDayPercentage(museum));
-                    break;
-                default:
-                    break;
-
+        switch (result) {
+            case 1:
+                Output.printMessage("Tickets sold all time: " + museum.getTicketCountAllTimes());
+                break;
+            case 2:
+                Output.printMessage(Output.printTicketsSoldDay(museum));
+                break;
+            case 3:
+                Output.printMessage(Output.printTicketsSoldDayPercentage(museum));
+                break;
+            default:
+                break;
         }
 
     }
 
 
     private static void buyTicket() {
-        LocalDate ticketDate = Output.getTicketDate();
+        LocalDate ticketDate = getTicketDate();
 
         int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
@@ -64,5 +63,31 @@ public class Main {
         System.out.println();
 
         museum.setTicketCount(ticketDate, ticketCount);
+    }
+
+    public static LocalDate getTicketDate() {
+        int year = LocalDate.now().getYear();
+
+        int monthMin = LocalDate.now().getMonthValue();
+        int monthMax = LocalDate.now().plusMonths(2).getMonthValue();
+        String monthTextMessage = "Choose a month (min: " + monthMin + ", max: " + monthMax + "): ";
+
+        int month = Output.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", monthMin, monthMax);
+
+        int minDayInMonth = month == LocalDate.now().getMonthValue() ? LocalDate.now().getDayOfMonth() : 1;
+        int maxDayInMonth = maxDayInMonth(year, month, monthMax);
+        String dayTextMessage = "Choose a day (min: " + minDayInMonth + ", max: " + maxDayInMonth + "): ";
+
+        int day = Output.intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
+
+        System.out.println();
+        return LocalDate.of(year, month, day);
+    }
+
+    private static int maxDayInMonth(int year, int month, int monthMax) {
+        int result = LocalDate.of(year, month, LocalDate.now().getDayOfMonth()).plusMonths(2).getDayOfMonth();
+        int maxDayInTwoMonth = LocalDate.of(year, month, 1).plusMonths(2).lengthOfMonth();
+
+        return month == monthMax ? Math.min(result, maxDayInTwoMonth) : LocalDate.of(year, month, 1).lengthOfMonth();
     }
 }

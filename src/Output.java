@@ -10,25 +10,6 @@ public class Output {
         System.out.println();
     }
 
-    public static LocalDate getTicketDate() {
-        int year = LocalDate.now().getYear();
-
-        int monthMin = LocalDate.now().getMonthValue();
-        int monthMax = LocalDate.now().plusMonths(2).getMonthValue();
-        String monthTextMessage = "Choose a month (min: " + monthMin + ", max: " + monthMax + "): ";
-
-        int month = intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", monthMin, monthMax);
-
-        int minDayInMonth = month == LocalDate.now().getMonthValue() ? LocalDate.now().getDayOfMonth() : 1;
-        int maxDayInMonth = month == monthMax ? LocalDate.now().getDayOfMonth() : LocalDate.of(year, month, 1).lengthOfMonth();
-        String dayTextMessage = "Choose a day (min: " + minDayInMonth + ", max: " + maxDayInMonth + "): ";
-
-        int day = intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
-
-        System.out.println();
-        return LocalDate.of(year, month, day);
-    }
-
     public static int intInputValidationBetween(String text, String notValidText, int minValue, int maxValue) {
         int result;
         System.out.print(text);
@@ -62,14 +43,14 @@ public class Output {
     }
 
     public static String printTicketsSoldDay(Museum museum) {
-        LocalDate date = getTicketDate();
+        LocalDate date = Main.getTicketDate();
         int ticketCountPerDay = museum.getTicketCountPerDay(date);
 
         return formatDate(date) + " - " + ticketCountPerDay + " tickets sold.";
     }
 
     public static String printTicketsSoldDayPercentage(Museum museum) {
-        LocalDate date = getTicketDate();
+        LocalDate date = Main.getTicketDate();
         double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(date);
         return formatDate(date) + " - " + ticketCountPerDayPercentage + "% of places are occupied";
     }
