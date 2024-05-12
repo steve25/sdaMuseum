@@ -61,21 +61,16 @@ public class Museum {
 
     private int findNextNull() {
         for (int i = 0; i < this.localDate.length; i++) {
-            if (this.localDate[i] == null) {
-                return i;
-            }
+            if (this.localDate[i] == null) return i;
         }
+
         return -1;
     }
 
     public int checkAvailableTicketsCount(LocalDate date) {
         int dateIndex = findIndex(date);
 
-        if (dateIndex == -1) {
-            return this.ticketLimitPerDay;
-        }
-
-        return this.ticketLimitPerDay - this.ticketCountPerDay[dateIndex];
+        return dateIndex == -1 ? this.ticketLimitPerDay : this.ticketLimitPerDay - this.ticketCountPerDay[dateIndex];
     }
 
 }
