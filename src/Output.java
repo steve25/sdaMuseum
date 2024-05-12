@@ -36,12 +36,7 @@ public class Output {
         int result;
         System.out.print(text);
         do {
-            while (!sc.hasNextInt()) {
-                System.out.print(notValidText);
-                sc.next();
-            }
-
-            result = sc.nextInt();
+            result = intInputValidation(notValidText);
 
             if (result < minValue || result > maxValue) {
                 System.out.print(notValidText);
@@ -50,6 +45,15 @@ public class Output {
         } while (result < minValue || result > maxValue);
 
         return result;
+    }
+
+    public static int intInputValidation(String notValidText) {
+        while (!sc.hasNextInt()) {
+            System.out.print(notValidText);
+            sc.next();
+        }
+
+        return sc.nextInt();
     }
 
     public static int makeMenu(String... items) {
