@@ -39,6 +39,13 @@ public class Output {
         return sc.nextInt();
     }
 
+    public static boolean answerYesNo(String question) {
+        System.out.print(question);
+        String answer = sc.next();
+        System.out.println();
+        return answer.equalsIgnoreCase("y");
+    }
+
     public static int makeMenu(String... items) {
         for (int i = 0; i < items.length; i++) {
             System.out.printf("%s: %s%n", i + 1, items[i]);
@@ -50,13 +57,8 @@ public class Output {
     public static String printTicketsSoldDay(Museum museum) {
         LocalDate date = MenusLogic.getTicketDate();
         int ticketCountPerDay = museum.getTicketCountPerDay(date);
-
-        return OutputLogic.formatDate(date) + " - " + ticketCountPerDay + " tickets sold.";
-    }
-
-    public static String printTicketsSoldDayPercentage(Museum museum) {
-        LocalDate date = MenusLogic.getTicketDate();
         double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(date);
-        return OutputLogic.formatDate(date) + " - " + ticketCountPerDayPercentage + "% of places are occupied";
+
+        return OutputLogic.formatDate(date) + " - " + ticketCountPerDay + " (" + ticketCountPerDayPercentage + "%) tickets sold.";
     }
 }
