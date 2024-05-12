@@ -1,8 +1,13 @@
+package console;
+
+import main.MenusLogic;
+import museum.Museum;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Output {
+
     private final static Scanner sc = new Scanner(System.in);
 
     public static void printMessage(String message) {
@@ -43,21 +48,15 @@ public class Output {
     }
 
     public static String printTicketsSoldDay(Museum museum) {
-        LocalDate date = Main.getTicketDate();
+        LocalDate date = MenusLogic.getTicketDate();
         int ticketCountPerDay = museum.getTicketCountPerDay(date);
 
-        return formatDate(date) + " - " + ticketCountPerDay + " tickets sold.";
+        return OutputLogic.formatDate(date) + " - " + ticketCountPerDay + " tickets sold.";
     }
 
     public static String printTicketsSoldDayPercentage(Museum museum) {
-        LocalDate date = Main.getTicketDate();
+        LocalDate date = MenusLogic.getTicketDate();
         double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(date);
-        return formatDate(date) + " - " + ticketCountPerDayPercentage + "% of places are occupied";
-    }
-
-    private static String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        return date.format(formatter);
+        return OutputLogic.formatDate(date) + " - " + ticketCountPerDayPercentage + "% of places are occupied";
     }
 }

@@ -1,3 +1,8 @@
+package main;
+
+import console.Output;
+import museum.Museum;
+
 import java.time.LocalDate;
 
 public class Main {
@@ -44,12 +49,10 @@ public class Main {
             default:
                 break;
         }
-
     }
 
-
-    private static void buyTicket() {
-        LocalDate ticketDate = getTicketDate();
+    public static void buyTicket() {
+        LocalDate ticketDate = MenusLogic.getTicketDate();
 
         int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
@@ -60,7 +63,7 @@ public class Main {
 
         System.out.println("Which kind of ticket you want?");
 
-        int ticketType = Output.makeMenu(makeTicketTyperArr());
+        int ticketType = Output.makeMenu(MenusLogic.makeTicketTypeArr());
         System.out.println();
 
         int maxTicket = Math.min(availableTicket, 3);
@@ -70,45 +73,5 @@ public class Main {
         museum.setTicketCount(ticketDate, ticketCount);
 
         Output.printMessage("You bought " + ticketCount + " tickets for " + museum.getTicketPrice(ticketCount, ticketType) + "Eur");
-    }
-
-    private static String[] makeTicketTyperArr() {
-        TicketTypes[] ticketTypes = TicketTypes.values();
-        String[] result = new String[ticketTypes.length];
-        for (int i = 0; i < ticketTypes.length; i++) {
-            result[i] = capitalizedFirstChar(ticketTypes[i].name().toLowerCase().replace("_", " "));
-        }
-
-        return result;
-    }
-
-    private static String capitalizedFirstChar(String text) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-
-    public static LocalDate getTicketDate() {
-        int year = LocalDate.now().getYear();
-
-        int monthMin = LocalDate.now().getMonthValue();
-        int monthMax = LocalDate.now().plusMonths(2).getMonthValue();
-        String monthTextMessage = "Choose a month (min: " + monthMin + ", max: " + monthMax + "): ";
-
-        int month = Output.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", monthMin, monthMax);
-
-        int minDayInMonth = month == LocalDate.now().getMonthValue() ? LocalDate.now().getDayOfMonth() : 1;
-        int maxDayInMonth = maxDayInMonth(year, month, monthMax);
-        String dayTextMessage = "Choose a day (min: " + minDayInMonth + ", max: " + maxDayInMonth + "): ";
-
-        int day = Output.intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
-
-        System.out.println();
-        return LocalDate.of(year, month, day);
-    }
-
-    private static int maxDayInMonth(int year, int month, int monthMax) {
-        int result = LocalDate.of(year, month, LocalDate.now().getDayOfMonth()).plusMonths(2).getDayOfMonth();
-        int maxDayInTwoMonth = LocalDate.of(year, month, 1).plusMonths(2).lengthOfMonth();
-
-        return month == monthMax ? Math.min(result, maxDayInTwoMonth) : LocalDate.of(year, month, 1).lengthOfMonth();
     }
 }
