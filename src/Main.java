@@ -4,11 +4,11 @@ public class Main {
     private static final Museum museum = new Museum();
 
     public static void main(String[] args) {
-        Output.printWelcomeMessage();
-        menuLogic();
+        Output.printMessage("Welcome our reservation system.");
+        mainLoop();
     }
 
-    public static void menuLogic() {
+    public static void mainLoop() {
         int result;
         while (true) {
             result = Output.makeMenu("Buy a ticket", "Admin panel", "Exit");
@@ -33,16 +33,13 @@ public class Main {
 
             switch (result) {
                 case 1:
-                    System.out.println("Tickets sold: " + museum.getTicketCountAllTimes());
-                    System.out.println();
+                    Output.printMessage("Tickets sold all time: " + museum.getTicketCountAllTimes());
                     break;
                 case 2:
-                    System.out.println(Output.printTicketsSoldDay(museum));
-                    System.out.println();
+                    Output.printMessage(Output.printTicketsSoldDay(museum));
                     break;
                 case 3:
-                    System.out.println(Output.printTicketsSoldDayPercentage(museum));
-                    System.out.println();
+                    Output.printMessage(Output.printTicketsSoldDayPercentage(museum));
                     break;
                 default:
                     break;
@@ -51,9 +48,6 @@ public class Main {
 
     }
 
-    public void testBranch() {
-        System.out.println("test");
-    }
 
     private static void buyTicket() {
         LocalDate ticketDate = Output.getTicketDate();

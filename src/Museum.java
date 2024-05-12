@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 
@@ -8,7 +7,6 @@ public class Museum {
     private final LocalDate[] localDate = new LocalDate[(int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2))];
     private final int[] ticketCountPerDay = new int[(int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2))];
     private int ticketCountAllTimes = 0;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     public void setTicketCount(LocalDate date, int ticketCount) {
 
@@ -30,19 +28,17 @@ public class Museum {
         return ticketCountAllTimes;
     }
 
-    public String getTicketCountPerDay(LocalDate date) {
+    public int getTicketCountPerDay(LocalDate date) {
         int dateIndex = findIndex(date);
 
-        String dateString = date.format(this.formatter);
+        return dateIndex == -1 ? 0 : this.ticketCountPerDay[dateIndex];
+    }
 
-        int result;
-        if (dateIndex == -1) {
-            result = 0;
-        } else  {
-            result = this.ticketCountPerDay[dateIndex];
-        }
 
-        return dateString + " - " + result + " was sold";
+    public double getTicketCountPerDayPercentage(LocalDate date) {
+        int dateIndex = findIndex(date);
+
+        return dateIndex == -1 ? 0 : ((double) this.ticketCountPerDay[dateIndex] / this.ticketLimitPerDay) * 100;
     }
 
     private void showDates() {
@@ -82,18 +78,4 @@ public class Museum {
         return this.ticketLimitPerDay - this.ticketCountPerDay[dateIndex];
     }
 
-    public String getTicketCountPerDayPercentage(LocalDate date) {
-        int dateIndex = findIndex(date);
-
-        String dateString = date.format(this.formatter);
-
-        int result;
-        if (dateIndex == -1) {
-            result =  0;
-        } else {
-            result = (int) (((double) this.ticketCountPerDay[dateIndex] / this.ticketLimitPerDay) * 100);
-        }
-
-        return dateString + " - " + result + "% tickets sold";
-    }
 }

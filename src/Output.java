@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Output {
@@ -7,8 +8,8 @@ public class Output {
     /**
      * Print a welcome message
      */
-    public static void printWelcomeMessage() {
-        System.out.println("Welcome our reservation system.");
+    public static void printMessage(String message) {
+        System.out.println(message);
         System.out.println();
     }
 
@@ -61,11 +62,22 @@ public class Output {
 
     public static String printTicketsSoldDay(Museum museum) {
         LocalDate date = getTicketDate();
-        return museum.getTicketCountPerDay(date);
+        int ticketCountPerDay = museum.getTicketCountPerDay(date);
+
+        return formatDate(date) + " - " + ticketCountPerDay + " tickets sold.";
     }
 
     public static String printTicketsSoldDayPercentage(Museum museum) {
         LocalDate date = getTicketDate();
-        return museum.getTicketCountPerDayPercentage(date);
+        double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(date);
+        return formatDate(date) + " - " + ticketCountPerDayPercentage + "% of places are occupied";
+    }
+
+    private static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        return date.format(formatter);
+
+
     }
 }
