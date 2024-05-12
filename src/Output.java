@@ -59,7 +59,5 @@ public class Output {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         return date.format(formatter);
-
-
     }
 }
