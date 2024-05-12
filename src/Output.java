@@ -23,7 +23,7 @@ public class Output {
         int month = intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", monthMin, monthMax);
 
         int minDayInMonth = month == LocalDate.now().getMonthValue() ? LocalDate.now().getDayOfMonth() : 1;
-        int maxDayInMonth = LocalDate.of(year, month, 1).lengthOfMonth();
+        int maxDayInMonth = month == monthMax ? LocalDate.now().getDayOfMonth() : LocalDate.of(year, month, 1).lengthOfMonth();
         String dayTextMessage = "Choose a day (min: " + minDayInMonth + ", max: " + maxDayInMonth + "): ";
 
         int day = intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
