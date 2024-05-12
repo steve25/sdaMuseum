@@ -4,8 +4,9 @@ import java.time.temporal.ChronoUnit;
 
 public class Museum {
     private final int ticketLimitPerDay = 10;
-    private final LocalDate[] localDate = new LocalDate[(int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2))];
-    private final int[] ticketCountPerDay = new int[(int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2))];
+    private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2));
+    private final LocalDate[] localDate = new LocalDate[arraysSize];
+    private final int[] ticketCountPerDay = new int[arraysSize];
     private int ticketCountAllTimes = 0;
 
     public void setTicketCount(LocalDate date, int ticketCount) {
