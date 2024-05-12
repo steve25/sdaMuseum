@@ -54,12 +54,14 @@ public class Main {
         int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
         if (availableTicket == 0) {
-            System.out.println("Sorry, there are no tickets for this date.");
+            Output.printMessage("Sorry, there are no tickets for this date.");
             return;
         }
 
-        Output.printMessage("Which kind of ticket you want");
-        int ticketType = Output.makeMenu("Regular ticket", "Discounted ticket");
+        System.out.println("Which kind of ticket you want?");
+
+        int ticketType = Output.makeMenu(makeTicketTyperArr());
+        System.out.println();
 
         int maxTicket = Math.min(availableTicket, 3);
         int ticketCount = Output.intInputValidationBetween("How many tickets you want to buy? (min: 1, max: " + maxTicket + "): ", "Enter a valid number: ", 1, maxTicket);
@@ -68,6 +70,20 @@ public class Main {
         museum.setTicketCount(ticketDate, ticketCount);
 
         Output.printMessage("You bought " + ticketCount + " tickets for " + museum.getTicketPrice(ticketCount, ticketType) + "Eur");
+    }
+
+    private static String[] makeTicketTyperArr() {
+        TicketTypes[] ticketTypes = TicketTypes.values();
+        String[] result = new String[ticketTypes.length];
+        for (int i = 0; i < ticketTypes.length; i++) {
+            result[i] = capitalizedFirstChar(ticketTypes[i].name().toLowerCase().replace("_", " "));
+        }
+
+        return result;
+    }
+
+    private static String capitalizedFirstChar(String text) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 
     public static LocalDate getTicketDate() {

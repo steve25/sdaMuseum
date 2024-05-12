@@ -76,8 +76,19 @@ public class Museum {
     }
 
     public double getTicketPrice(int count, int ticketType) {
-        double price = this.ticketPrice * count;
+        return calculateFinalPrice(ticketType, count);
+    }
 
-        return ticketType == 1 ? price : price / 2;
+    private double calculateFinalPrice(int ticketType, int count) {
+
+        String ticketTypeValue = TicketTypes.values()[ticketType - 1].getTicketTypeValue();
+        String specialString = ticketTypeValue.substring(0, 1);
+        double value = Double.parseDouble(ticketTypeValue.substring(1));
+
+        if (specialString.equalsIgnoreCase("v")) {
+            return value * count;
+        }
+
+        return this.ticketPrice * (value / 100) * count;
     }
 }
