@@ -11,7 +11,7 @@ public class Main {
     public static void mainLoop() {
         int result;
         while (true) {
-            result = Output.makeMenu("Buy a ticket", "Admin panel", "Exit");
+            result = Output.makeMenu("Buy a tickets", "Admin panel", "Exit");
             System.out.println();
 
             switch (result) {
@@ -54,9 +54,12 @@ public class Main {
         int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
         if (availableTicket == 0) {
-            System.out.println("Sorry, there are no   tickets for this date.");
+            System.out.println("Sorry, there are no tickets for this date.");
             return;
         }
+
+        Output.printMessage("Which kind of ticket you want");
+        int ticketType = Output.makeMenu("Regular ticket", "Discounted ticket");
 
         int maxTicket = Math.min(availableTicket, 3);
         int ticketCount = Output.intInputValidationBetween("How many tickets you want to buy? (min: 1, max: " + maxTicket + "): ", "Enter a valid number: ", 1, maxTicket);
@@ -64,7 +67,7 @@ public class Main {
 
         museum.setTicketCount(ticketDate, ticketCount);
 
-        Output.printMessage("You bought " + ticketCount + " tickets for " + museum.getTicketPrice(ticketCount) + "Eur");
+        Output.printMessage("You bought " + ticketCount + " tickets for " + museum.getTicketPrice(ticketCount, ticketType) + "Eur");
     }
 
     public static LocalDate getTicketDate() {

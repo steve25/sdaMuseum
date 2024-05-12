@@ -75,7 +75,9 @@ public class Museum {
         return dateIndex == -1 ? this.ticketLimitPerDay : this.ticketLimitPerDay - this.ticketCountPerDay[dateIndex];
     }
 
-    public double getTicketPrice(int count) {
-        return ticketPrice * count;
+    public double getTicketPrice(int count, int ticketType) {
+        double price = this.ticketPrice * count;
+
+        return ticketType == 1 ? price : price / 2;
     }
 }
