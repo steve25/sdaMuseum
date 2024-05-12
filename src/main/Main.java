@@ -2,7 +2,6 @@ package main;
 
 import console.Output;
 import museum.Museum;
-import museum.TicketTypes;
 
 import java.time.LocalDate;
 
@@ -64,7 +63,7 @@ public class Main {
 
         System.out.println("Which kind of ticket you want?");
 
-        int ticketType = Output.makeMenu(MenusLogic.makeTicketTyperArr());
+        int ticketType = Output.makeMenu(MenusLogic.makeTicketTypeArr());
         System.out.println();
 
         int maxTicket = Math.min(availableTicket, 3);

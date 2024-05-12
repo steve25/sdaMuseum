@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class MenusLogic {
 
-    public static String[] makeTicketTyperArr() {
+    public static String[] makeTicketTypeArr() {
         TicketTypes[] ticketTypes = TicketTypes.values();
         String[] result = new String[ticketTypes.length];
         for (int i = 0; i < ticketTypes.length; i++) {
