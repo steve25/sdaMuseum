@@ -63,10 +63,10 @@ public class Output {
     }
 
     public static String printTicketsSoldMonth(Museum museum) {
-        int month = MenusLogic.getTicketDateMonth(museum.getMonthAheadToBuy());
-        int ticketCountPerMonth = museum.getTicketCountPerMonth(month);
-        double ticketCountPerMonthPercentage = museum.getTicketCountPerMonthPercentage(month, ticketCountPerMonth);
+        LocalDate date = MenusLogic.getTicketDateMonth(museum.getMonthAheadToBuy());
+        int ticketCountPerMonth = museum.getTicketCountPerMonth(date);
+        double ticketCountPerMonthPercentage = museum.getTicketCountPerMonthPercentage(date, ticketCountPerMonth);
 
-        return "In month " + month + " - " + ticketCountPerMonth + " (" + OutputLogic.formatTwoDecimal(ticketCountPerMonthPercentage) + "%) tickets sold.";
+        return "In month " + OutputLogic.formateDateMonth(date) + " - " + ticketCountPerMonth + " (" + OutputLogic.formatTwoDecimal(ticketCountPerMonthPercentage) + "%) tickets sold.";
     }
 }

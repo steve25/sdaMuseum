@@ -8,7 +8,7 @@ public class Museum {
 
     private final int ticketLimitPerDay = 10;
     private final double ticketPrice = 5;
-    private final int monthAheadToBuy = 2;
+    private final int monthAheadToBuy = 10;
     private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2));
     private final LocalDate[] localDate = new LocalDate[arraysSize];
     private final int[] ticketCountPerDay = new int[arraysSize];
@@ -49,12 +49,12 @@ public class Museum {
         return dateIndex == -1 ? 0 : ((double) this.ticketCountPerDay[dateIndex] / this.ticketLimitPerDay) * 100;
     }
 
-    public int getTicketCountPerMonth(int month) {
+    public int getTicketCountPerMonth(LocalDate date) {
         int[] arrayOfTickets = new int[this.localDate.length];
         int result = 0;
 
         for (int i = 0; i < this.localDate.length; i++) {
-            if (this.localDate[i] != null && this.localDate[i].getMonthValue() == month) {
+            if (this.localDate[i] != null && this.localDate[i].getMonthValue() == date.getMonthValue() && this.localDate[i].getYear() == date.getYear()) {
                 arrayOfTickets[i] = this.ticketCountPerDay[i];
             }
         }
@@ -66,15 +66,15 @@ public class Museum {
         return result;
     }
 
-    public double getTicketCountPerMonthPercentage(int month, int totalSoldTicket) {
+    public double getTicketCountPerMonthPercentage(LocalDate date, int totalSoldTicket) {
         int actualDay = LocalDate.now().getDayOfMonth();
-        int totalDays = LocalDate.of(LocalDate.now().getYear(), month, 1).lengthOfMonth();
+        int totalDays = date.lengthOfMonth();
 
-        if (month == LocalDate.now().getMonthValue()) {
+        if (date.getMonthValue() == LocalDate.now().getMonthValue()) {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * (totalDays - actualDay))) * 100;
         }
 
-        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue() + this.monthAheadToBuy, 1).getMonthValue() == month) {
+        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue() + this.monthAheadToBuy, 1).getMonthValue() == date.getMonthValue()) {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * actualDay)) * 100;
         }
 
