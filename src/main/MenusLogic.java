@@ -18,11 +18,11 @@ public class MenusLogic {
         return result;
     }
 
-    public static LocalDate getTicketDate() {
+    public static LocalDate getTicketDate(int monthToAdd) {
         int year = LocalDate.now().getYear();
 
         int monthMin = LocalDate.now().getMonthValue();
-        int monthMax = LocalDate.now().plusMonths(2).getMonthValue();
+        int monthMax = LocalDate.now().plusMonths(monthToAdd).getMonthValue();
         String monthTextMessage = "Choose a month (min: " + monthMin + ", max: " + monthMax + "): ";
 
         int month = Output.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", monthMin, monthMax);
@@ -35,6 +35,14 @@ public class MenusLogic {
 
         System.out.println();
         return LocalDate.of(year, month, day);
+    }
+
+    public static int getTicketDateMonth(int monthToAdd) {
+        int monthMin = LocalDate.now().getMonthValue();
+        int monthMax = LocalDate.now().plusMonths(monthToAdd).getMonthValue();
+        String monthTextMessage = "Choose a month (min: " + monthMin + ", max: " + monthMax + "): ";
+
+        return Output.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", monthMin, monthMax);
     }
 
     private static int maxDayInMonth(int year, int month, int monthMax) {
