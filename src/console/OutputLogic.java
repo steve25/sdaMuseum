@@ -11,6 +11,11 @@ public class OutputLogic {
         return date.format(formatter);
     }
 
+    public static String formateDateMonth(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM.yyyy");
+        return date.format(formatter);
+    }
+
     public static String capitalizedFirstChar(String text) {
         return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
