@@ -35,7 +35,7 @@ public class Main {
     private static void adminPanel() {
         int result;
         while (true) {
-            result = Output.makeMenu("Tickets sold - all time", "Tickets sold - day", "Cancel");
+            result = Output.makeMenu("Tickets sold - all time", "Tickets sold - day", "Tickets sold - month", "Cancel");
             System.out.println();
 
             switch (result) {
@@ -44,6 +44,9 @@ public class Main {
                     break;
                 case 2:
                     Output.printMessage(Output.printTicketsSoldDay(museum));
+                    break;
+                case 3:
+                    Output.printMessage(Output.printTicketsSoldMonth(museum));
                     break;
                 default:
                     return;
@@ -56,7 +59,7 @@ public class Main {
         double totalPrice = 0;
 
         while (true) {
-            LocalDate ticketDate = MenusLogic.getTicketDate();
+            LocalDate ticketDate = MenusLogic.getTicketDate(museum.getMonthAheadToBuy());
 
             int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 

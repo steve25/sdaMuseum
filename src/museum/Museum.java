@@ -8,6 +8,7 @@ public class Museum {
 
     private final int ticketLimitPerDay = 10;
     private final double ticketPrice = 5;
+    private final int monthAheadToBuy = 2;
     private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2));
     private final LocalDate[] localDate = new LocalDate[arraysSize];
     private final int[] ticketCountPerDay = new int[arraysSize];
@@ -32,6 +33,10 @@ public class Museum {
         return ticketCountAllTimes;
     }
 
+    public int getMonthAheadToBuy() {
+        return monthAheadToBuy;
+    }
+
     public int getTicketCountPerDay(LocalDate date) {
         int dateIndex = findIndex(date);
 
@@ -42,6 +47,39 @@ public class Museum {
         int dateIndex = findIndex(date);
 
         return dateIndex == -1 ? 0 : ((double) this.ticketCountPerDay[dateIndex] / this.ticketLimitPerDay) * 100;
+    }
+
+    public int getTicketCountPerMonth(int month) {
+        int[] arrayOfTickets = new int[this.localDate.length];
+        int result = 0;
+
+        for (int i = 0; i < this.localDate.length; i++) {
+            if (this.localDate[i] != null && this.localDate[i].getMonthValue() == month) {
+                arrayOfTickets[i] = this.ticketCountPerDay[i];
+            }
+        }
+
+        for (int number : arrayOfTickets) {
+            result += number;
+        }
+
+        return result;
+    }
+
+    public double getTicketCountPerMonthPercentage(int month, int totalSoldTicket) {
+        int actualDay = LocalDate.now().getDayOfMonth();
+        int totalDays = LocalDate.of(LocalDate.now().getYear(), month, 1).lengthOfMonth();
+
+        if (month == LocalDate.now().getMonthValue()) {
+            return ((double) totalSoldTicket / (this.ticketLimitPerDay * (totalDays - actualDay))) * 100;
+        }
+
+        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue() + this.monthAheadToBuy, 1).getMonthValue() == month) {
+            return ((double) totalSoldTicket / (this.ticketLimitPerDay * actualDay)) * 100;
+        }
+
+        return ((double) totalSoldTicket / (this.ticketLimitPerDay * totalDays)) * 100;
+
     }
 
     private int findIndex(LocalDate date) {
