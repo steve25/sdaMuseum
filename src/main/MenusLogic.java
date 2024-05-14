@@ -43,10 +43,11 @@ public class MenusLogic {
         int maxMonth;
         if (year == LocalDate.now().getYear()) {
             minMonth = LocalDate.now().getMonthValue();
+            maxMonth = 12;
         } else {
             minMonth = 1;
+            maxMonth = LocalDate.now().plusMonths(monthToAdd).getMonthValue();
         }
-        maxMonth = LocalDate.now().plusMonths(monthToAdd).getMonthValue();
 
         String monthTextMessage = "Choose a month (min: " + minMonth + ", max: " + maxMonth + "): ";
 
