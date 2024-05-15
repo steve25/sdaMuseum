@@ -10,6 +10,10 @@ public class Output {
 
     private final static Scanner sc = new Scanner(System.in);
 
+    /**
+     * Print message only
+     * @param message
+     */
     public static void printMessage(String message) {
         System.out.println(message);
         System.out.println();
