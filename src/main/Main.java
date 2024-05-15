@@ -1,6 +1,7 @@
 package main;
 
 import console.Output;
+import console.OutputLogic;
 import museum.Museum;
 
 import java.time.LocalDate;
@@ -57,9 +58,14 @@ public class Main {
     public static void buyTicket() {
         int totalTicketCount = 0;
         double totalPrice = 0;
+        boolean isSameDate = false;
+        LocalDate ticketDate = null;
 
         while (true) {
-            LocalDate ticketDate = MenusLogic.getTicketDate(museum.getMonthAheadToBuy());
+
+            if (!isSameDate) {
+                ticketDate = MenusLogic.getTicketDate(museum.getMonthAheadToBuy());
+            }
 
             int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
@@ -82,11 +88,13 @@ public class Main {
 
             museum.setTicketCount(ticketDate, ticketCount);
 
-            boolean anotherTicket = Output.answerYesNo("Do you want buy another tickets? (y/n) ");
+            boolean isAnotherTicket = Output.answerYesNo("Do you want buy another tickets? (y/n) ");
 
-            if (!anotherTicket) {
+            if (!isAnotherTicket) {
                 break;
             }
+
+            isSameDate = Output.answerYesNo("Do you want buy a tickets for the same date? - " + OutputLogic.formatDate(ticketDate) + " (y/n) ");
         }
 
         Output.printMessage("You bought " + totalTicketCount + " tickets for " + totalPrice + "Eur");
