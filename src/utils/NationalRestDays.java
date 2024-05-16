@@ -63,7 +63,6 @@ public class NationalRestDays {
 
     public boolean isRestDay(LocalDate buyDate) {
         for (LocalDate restDate : this.restDays) {
-            System.out.println(restDate + " " + buyDate);
             if (restDate.equals(buyDate)) return true;
         }
 
