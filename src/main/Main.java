@@ -4,12 +4,15 @@ import console.Output;
 import console.OutputLogic;
 import museum.Museum;
 
+import utils.NationalRestDays;
+
 import java.time.LocalDate;
 
 public class Main {
     private static final Museum museum = new Museum();
 
     public static void main(String[] args) {
+
         Output.printMessage("Welcome our reservation system.");
         mainLoop();
     }
@@ -71,6 +74,13 @@ public class Main {
 
             if (availableTicket == 0) {
                 Output.printMessage("Sorry, there are no tickets for this date.");
+                return;
+            }
+
+            NationalRestDays nationalRestDays = new NationalRestDays(ticketDate.getYear());
+
+            if (nationalRestDays.isRestDay(ticketDate)) {
+                Output.printMessage("Sorry, our museum is closed this date.");
                 return;
             }
 
