@@ -1,7 +1,7 @@
 package main;
 
-import console.Output;
-import console.OutputLogic;
+import utils.MyIOClass;
+import utils.MyIOClassLogic;
 import museum.Museum;
 
 import utils.NationalRestDays;
@@ -13,14 +13,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Output.printMessage("Welcome our reservation system.");
+        MyIOClass.printMessage("Welcome our reservation system.");
         mainLoop();
     }
 
     public static void mainLoop() {
         int result;
         while (true) {
-            result = Output.makeMenu("Buy a tickets", "Admin panel", "Exit");
+            result = MyIOClass.makeMenu("Buy a tickets", "Admin panel", "Exit");
             System.out.println();
 
             switch (result) {
@@ -39,18 +39,18 @@ public class Main {
     private static void adminPanel() {
         int result;
         while (true) {
-            result = Output.makeMenu("Tickets sold - all time", "Tickets sold - day", "Tickets sold - month", "Cancel");
+            result = MyIOClass.makeMenu("Tickets sold - all time", "Tickets sold - day", "Tickets sold - month", "Cancel");
             System.out.println();
 
             switch (result) {
                 case 1:
-                    Output.printMessage("Tickets sold all time: " + museum.getTicketCountAllTimes());
+                    MyIOClass.printMessage("Tickets sold all time: " + museum.getTicketCountAllTimes());
                     break;
                 case 2:
-                    Output.printMessage(Output.printTicketsSoldDay(museum));
+                    MyIOClass.printMessage(MyIOClass.printTicketsSoldDay(museum));
                     break;
                 case 3:
-                    Output.printMessage(Output.printTicketsSoldMonth(museum));
+                    MyIOClass.printMessage(MyIOClass.printTicketsSoldMonth(museum));
                     break;
                 default:
                     return;
@@ -73,24 +73,24 @@ public class Main {
             int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
 
             if (availableTicket == 0) {
-                Output.printMessage("Sorry, there are no tickets for this date.");
+                MyIOClass.printMessage("Sorry, there are no tickets for this date.");
                 return;
             }
 
             NationalRestDays nationalRestDays = new NationalRestDays(ticketDate.getYear());
 
             if (nationalRestDays.isRestDay(ticketDate)) {
-                Output.printMessage("Sorry, our museum is closed this date.");
+                MyIOClass.printMessage("Sorry, our museum is closed this date.");
                 return;
             }
 
             System.out.println("Which kind of ticket you want?");
 
-            int ticketType = Output.makeMenu(MenusLogic.makeTicketTypeArr());
+            int ticketType = MyIOClass.makeMenu(MenusLogic.makeTicketTypeArr());
             System.out.println();
 
             int maxTicket = Math.min(availableTicket, 3);
-            int ticketCount = Output.intInputValidationBetween("How many tickets you want to buy? (min: 1, max: " + maxTicket + "): ", "Enter a valid number: ", 1, maxTicket);
+            int ticketCount = MyIOClass.intInputValidationBetween("How many tickets you want to buy? (min: 1, max: " + maxTicket + "): ", "Enter a valid number: ", 1, maxTicket);
             System.out.println();
 
             totalTicketCount += ticketCount;
@@ -98,15 +98,15 @@ public class Main {
 
             museum.setTicketCount(ticketDate, ticketCount);
 
-            boolean isAnotherTicket = Output.answerYesNo("Do you want buy another tickets? (y/n) ");
+            boolean isAnotherTicket = MyIOClass.answerYesNo("Do you want buy another tickets? (y/n) ");
 
             if (!isAnotherTicket) {
                 break;
             }
 
-            isSameDate = Output.answerYesNo("Do you want buy a tickets for the same date? - " + OutputLogic.formatDate(ticketDate) + " (y/n) ");
+            isSameDate = MyIOClass.answerYesNo("Do you want buy a tickets for the same date? - " + MyIOClassLogic.formatDate(ticketDate) + " (y/n) ");
         }
 
-        Output.printMessage("You bought " + totalTicketCount + " tickets for " + totalPrice + "Eur");
+        MyIOClass.printMessage("You bought " + totalTicketCount + " tickets for " + totalPrice + "Eur");
     }
 }

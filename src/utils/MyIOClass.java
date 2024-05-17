@@ -1,4 +1,4 @@
-package console;
+package utils;
 
 import main.MenusLogic;
 import museum.Museum;
@@ -6,7 +6,7 @@ import museum.Museum;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Output {
+public class MyIOClass {
 
     private final static Scanner sc = new Scanner(System.in);
 
@@ -63,7 +63,7 @@ public class Output {
         int ticketCountPerDay = museum.getTicketCountPerDay(date);
         double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(date);
 
-        return OutputLogic.formatDate(date) + " - " + ticketCountPerDay + " (" + OutputLogic.formatTwoDecimal(ticketCountPerDayPercentage) + "%) tickets sold.";
+        return MyIOClassLogic.formatDate(date) + " - " + ticketCountPerDay + " (" + MyIOClassLogic.formatTwoDecimal(ticketCountPerDayPercentage) + "%) tickets sold.";
     }
 
     public static String printTicketsSoldMonth(Museum museum) {
@@ -71,6 +71,6 @@ public class Output {
         int ticketCountPerMonth = museum.getTicketCountPerMonth(date);
         double ticketCountPerMonthPercentage = museum.getTicketCountPerMonthPercentage(date, ticketCountPerMonth);
 
-        return "In month " + OutputLogic.formateDateMonth(date) + " - " + ticketCountPerMonth + " (" + OutputLogic.formatTwoDecimal(ticketCountPerMonthPercentage) + "%) tickets sold.";
+        return "In month " + MyIOClassLogic.formateDateMonth(date) + " - " + ticketCountPerMonth + " (" + MyIOClassLogic.formatTwoDecimal(ticketCountPerMonthPercentage) + "%) tickets sold.";
     }
 }
