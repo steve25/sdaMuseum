@@ -1,19 +1,15 @@
-package console;
+package main.utils;
 
-import main.MenusLogic;
-import museum.Museum;
+import main.Menus;
+import main.museum.Museum;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Output {
+public class MyIOClass {
 
     private final static Scanner sc = new Scanner(System.in);
 
-    /**
-     * Print message only
-     * @param message
-     */
     public static void printMessage(String message) {
         System.out.println(message);
         System.out.println();
@@ -59,18 +55,22 @@ public class Output {
     }
 
     public static String printTicketsSoldDay(Museum museum) {
-        LocalDate date = MenusLogic.getTicketDate(museum.getMonthAheadToBuy());
+        LocalDate date = Menus.getTicketDate(museum.getMonthAheadToBuy());
         int ticketCountPerDay = museum.getTicketCountPerDay(date);
         double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(date);
 
-        return OutputLogic.formatDate(date) + " - " + ticketCountPerDay + " (" + OutputLogic.formatTwoDecimal(ticketCountPerDayPercentage) + "%) tickets sold.";
+        return MyIOClassLogic.formatDate(date) + " - " + ticketCountPerDay + " (" + MyIOClassLogic.formatTwoDecimal(ticketCountPerDayPercentage) + "%) tickets sold.";
     }
 
     public static String printTicketsSoldMonth(Museum museum) {
-        LocalDate date = MenusLogic.getTicketDateMonth(museum.getMonthAheadToBuy());
+        LocalDate date = Menus.getTicketDateMonth(museum.getMonthAheadToBuy());
         int ticketCountPerMonth = museum.getTicketCountPerMonth(date);
         double ticketCountPerMonthPercentage = museum.getTicketCountPerMonthPercentage(date, ticketCountPerMonth);
 
-        return "In month " + OutputLogic.formateDateMonth(date) + " - " + ticketCountPerMonth + " (" + OutputLogic.formatTwoDecimal(ticketCountPerMonthPercentage) + "%) tickets sold.";
+        return "In month " + MyIOClassLogic.formatDateMonth(date) + " - " + ticketCountPerMonth + " (" + MyIOClassLogic.formatTwoDecimal(ticketCountPerMonthPercentage) + "%) tickets sold.";
+    }
+
+    public static void closeScanner() {
+        sc.close();
     }
 }

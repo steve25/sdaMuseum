@@ -1,4 +1,4 @@
-package museum;
+package main.museum;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -9,7 +9,7 @@ public class Museum {
     private final int ticketLimitPerDay = 10;
     private final double ticketPrice = 5;
     private final int monthAheadToBuy = 10;
-    private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(2));
+    private final int arraysSize = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.now().plusMonths(monthAheadToBuy));
     private final LocalDate[] localDate = new LocalDate[arraysSize];
     private final int[] ticketCountPerDay = new int[arraysSize];
     private int ticketCountAllTimes = 0;
@@ -74,7 +74,7 @@ public class Museum {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * (totalDays - actualDay))) * 100;
         }
 
-        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue() + this.monthAheadToBuy, 1).getMonthValue() == date.getMonthValue()) {
+        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().plusMonths(this.monthAheadToBuy).getMonthValue(), 1).getMonthValue() == date.getMonthValue()) {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * actualDay)) * 100;
         }
 

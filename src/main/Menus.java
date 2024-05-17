@@ -1,12 +1,12 @@
 package main;
 
-import console.Output;
-import console.OutputLogic;
-import museum.TicketTypes;
+import main.utils.MyIOClass;
+import main.utils.MyIOClassLogic;
+import main.museum.TicketTypes;
 
 import java.time.LocalDate;
 
-public class MenusLogic {
+public class Menus {
 
     public static LocalDate getTicketDate(int monthToAdd) {
 
@@ -33,7 +33,7 @@ public class MenusLogic {
         if (minYear != maxYear) {
             String yearTextMessage = "Choose a year (min: " + minYear + ", max: " + maxYear + "): ";
 
-            return Output.intInputValidationBetween(yearTextMessage, "Please enter a valid year: ", minYear, maxYear);
+            return MyIOClass.intInputValidationBetween(yearTextMessage, "Please enter a valid year: ", minYear, maxYear);
         }
         return LocalDate.now().getYear();
     }
@@ -51,7 +51,7 @@ public class MenusLogic {
 
         String monthTextMessage = "Choose a month (min: " + minMonth + ", max: " + maxMonth + "): ";
 
-        return Output.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", minMonth, maxMonth);
+        return MyIOClass.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", minMonth, maxMonth);
     }
 
     private static int getDayInput(int year, int month, int monthToAdd) {
@@ -59,7 +59,7 @@ public class MenusLogic {
         int maxDayInMonth = maxDayInMonth(year, month, monthToAdd);
         String dayTextMessage = "Choose a day (min: " + minDayInMonth + ", max: " + maxDayInMonth + "): ";
 
-        return Output.intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
+        return MyIOClass.intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
     }
 
     private static int maxDayInMonth(int year, int month, int monthToAdd) {
@@ -73,7 +73,7 @@ public class MenusLogic {
         TicketTypes[] ticketTypes = TicketTypes.values();
         String[] result = new String[ticketTypes.length];
         for (int i = 0; i < ticketTypes.length; i++) {
-            result[i] = OutputLogic.capitalizedFirstChar(ticketTypes[i].name().toLowerCase().replace("_", " "));
+            result[i] = MyIOClassLogic.capitalizedFirstChar(ticketTypes[i].name().toLowerCase().replace("_", " "));
         }
 
         return result;

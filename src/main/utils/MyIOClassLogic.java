@@ -1,9 +1,9 @@
-package console;
+package main.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class OutputLogic {
+public class MyIOClassLogic {
 
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -11,7 +11,7 @@ public class OutputLogic {
         return date.format(formatter);
     }
 
-    public static String formateDateMonth(LocalDate date) {
+    public static String formatDateMonth(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM.yyyy");
         return date.format(formatter);
     }
