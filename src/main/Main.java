@@ -1,10 +1,10 @@
 package main;
 
-import utils.MyIOClass;
-import utils.MyIOClassLogic;
-import museum.Museum;
+import main.utils.MyIOClass;
+import main.utils.MyIOClassLogic;
+import main.museum.Museum;
 
-import utils.NationalRestDays;
+import main.utils.NationalRestDays;
 
 import java.time.LocalDate;
 
@@ -31,6 +31,7 @@ public class Main {
                     adminPanel();
                     break;
                 default:
+                    MyIOClass.closeScanner();
                     return;
             }
         }
@@ -67,18 +68,16 @@ public class Main {
         while (true) {
 
             if (!isSameDate) {
-                ticketDate = MenusLogic.getTicketDate(museum.getMonthAheadToBuy());
+                ticketDate = Menus.getTicketDate(museum.getMonthAheadToBuy());
             }
 
             int availableTicket = museum.checkAvailableTicketsCount(ticketDate);
-
             if (availableTicket == 0) {
                 MyIOClass.printMessage("Sorry, there are no tickets for this date.");
                 return;
             }
 
             NationalRestDays nationalRestDays = new NationalRestDays(ticketDate.getYear());
-
             if (nationalRestDays.isRestDay(ticketDate)) {
                 MyIOClass.printMessage("Sorry, our museum is closed this date.");
                 return;
@@ -86,7 +85,7 @@ public class Main {
 
             System.out.println("Which kind of ticket you want?");
 
-            int ticketType = MyIOClass.makeMenu(MenusLogic.makeTicketTypeArr());
+            int ticketType = MyIOClass.makeMenu(Menus.makeTicketTypeArr());
             System.out.println();
 
             int maxTicket = Math.min(availableTicket, 3);
@@ -99,7 +98,6 @@ public class Main {
             museum.setTicketCount(ticketDate, ticketCount);
 
             boolean isAnotherTicket = MyIOClass.answerYesNo("Do you want buy another tickets? (y/n) ");
-
             if (!isAnotherTicket) {
                 break;
             }

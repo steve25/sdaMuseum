@@ -1,12 +1,12 @@
 package main;
 
-import utils.MyIOClass;
-import utils.MyIOClassLogic;
-import museum.TicketTypes;
+import main.utils.MyIOClass;
+import main.utils.MyIOClassLogic;
+import main.museum.TicketTypes;
 
 import java.time.LocalDate;
 
-public class MenusLogic {
+public class Menus {
 
     public static LocalDate getTicketDate(int monthToAdd) {
 

@@ -1,4 +1,4 @@
-package museum;
+package main.museum;
 
 public enum TicketTypes {
     REGULAR("p100"),
