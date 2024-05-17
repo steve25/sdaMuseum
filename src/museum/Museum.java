@@ -74,7 +74,7 @@ public class Museum {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * (totalDays - actualDay))) * 100;
         }
 
-        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue() + this.monthAheadToBuy, 1).getMonthValue() == date.getMonthValue()) {
+        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().plusMonths(this.monthAheadToBuy).getMonthValue(), 1).getMonthValue() == date.getMonthValue()) {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * actualDay)) * 100;
         }
 
