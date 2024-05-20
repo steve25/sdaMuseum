@@ -10,13 +10,18 @@ public class MyIOClass {
 
 
     public static void printMessage(String message) {
-        System.out.println(message);
+        System.out.println(ConsoleColors.WHITE + message + ConsoleColors.RESET);
+        System.out.println();
+    }
+
+    public static void printErrorMessage(String message) {
+        System.out.println(ConsoleColors.RED + message + ConsoleColors.RESET);
         System.out.println();
     }
 
     public static int intInputValidation(String notValidText) {
         while (!sc.hasNextInt()) {
-            System.out.print(notValidText);
+            System.out.print(ConsoleColors.RED + notValidText + ConsoleColors.YELLOW);
             sc.next();
         }
 
@@ -25,12 +30,12 @@ public class MyIOClass {
 
     public static int intInputValidationBetween(String text, String notValidText, int minValue, int maxValue) {
         int result;
-        System.out.print(text);
+        System.out.print(ConsoleColors.CYAN + text + ConsoleColors.YELLOW);
         do {
             result = intInputValidation(notValidText);
 
             if (result < minValue || result > maxValue) {
-                System.out.print(notValidText);
+                System.out.print(ConsoleColors.RED + notValidText + ConsoleColors.YELLOW);
             }
 
         } while (result < minValue || result > maxValue);
@@ -39,9 +44,8 @@ public class MyIOClass {
     }
 
     public static boolean answerYesNo(String question) {
-        System.out.print(question);
+        System.out.print(ConsoleColors.CYAN + question + ConsoleColors.YELLOW + " (y/n) " + ConsoleColors.YELLOW);
         String answer = sc.next();
-        System.out.println();
 
         return answer.equalsIgnoreCase("y");
     }

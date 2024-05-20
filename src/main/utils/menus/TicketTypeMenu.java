@@ -1,6 +1,7 @@
 package main.utils.menus;
 
 import main.museum.TicketTypes;
+import main.utils.ConsoleColors;
 import main.utils.MyFormatter;
 import main.utils.MyIOClass;
 
@@ -36,13 +37,13 @@ public class TicketTypeMenu {
     }
 
     private void printMenuQuestion() {
-        System.out.println(this.question);
+        System.out.println(ConsoleColors.CYAN + this.question + ConsoleColors.RESET);
     }
 
     private void printMenuItems() {
         int count = 1;
         for (Map.Entry<String, String> item : this.items.entrySet()) {
-            System.out.printf("%d: %s - %s Eur%n", count, item.getValue(), MyFormatter.formatTwoDecimal(this.getPriceFromTicket(item.getKey())));
+            System.out.printf(ConsoleColors.YELLOW + "%d" + ConsoleColors.RESET + ": %s - %s Eur%n", count, item.getValue(), MyFormatter.formatTwoDecimal(this.getPriceFromTicket(item.getKey())));
             count++;
         }
     }
