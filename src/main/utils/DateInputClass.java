@@ -26,7 +26,7 @@ public class DateInputClass {
         int maxYear = LocalDate.now().plusMonths(monthToAdd).getYear();
 
         if (minYear != maxYear) {
-            String yearTextMessage = "Choose a year (min: " + minYear + ", max: " + maxYear + "): ";
+            String yearTextMessage = "Choose a year " + ConsoleColors.YELLOW + "(min: " + minYear + ", max: " + maxYear + ")" + ConsoleColors.RESET + ": ";
 
             return MyIOClass.intInputValidationBetween(yearTextMessage, "Please enter a valid year: ", minYear, maxYear);
         }
@@ -43,7 +43,7 @@ public class DateInputClass {
             minMonth = 1;
             maxMonth = LocalDate.now().plusMonths(monthToAdd).getMonthValue();
         }
-        String monthTextMessage = "Choose a month (min: " + minMonth + ", max: " + maxMonth + "): ";
+        String monthTextMessage = "Choose a month "+ ConsoleColors.YELLOW + "(min: " + minMonth + ", max: " + maxMonth + ")" + ConsoleColors.RESET + ": ";
 
         return MyIOClass.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", minMonth, maxMonth);
     }
@@ -51,7 +51,7 @@ public class DateInputClass {
     private static int getDayInput(int year, int month, int monthToAdd) {
         int minDayInMonth = month == LocalDate.now().getMonthValue() ? LocalDate.now().getDayOfMonth() : 1;
         int maxDayInMonth = maxDayInMonth(year, month, monthToAdd);
-        String dayTextMessage = "Choose a day (min: " + minDayInMonth + ", max: " + maxDayInMonth + "): ";
+        String dayTextMessage = "Choose a day " + ConsoleColors.YELLOW + "(min: " + minDayInMonth + ", max: " + maxDayInMonth + ")" + ConsoleColors.RESET + ": ";
 
         return MyIOClass.intInputValidationBetween(dayTextMessage, "Please enter a valid day: ", minDayInMonth, maxDayInMonth);
     }

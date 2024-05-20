@@ -1,5 +1,6 @@
 package main.utils.menus;
 
+import main.utils.ConsoleColors;
 import main.utils.MyIOClass;
 
 public class RegularMenu {
@@ -37,7 +38,7 @@ public class RegularMenu {
 
     private void printMenuItems() {
         for (int i = 0; i < this.items.length; i++) {
-            System.out.printf("%s: %s%n", i + 1, items[i]);
+            System.out.printf(ConsoleColors.YELLOW + "%s" + ConsoleColors.RESET + ": " + ConsoleColors.GREEN + "%s" + ConsoleColors.RESET + "%n", i + 1, items[i]);
         }
     }
 }

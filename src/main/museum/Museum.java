@@ -1,10 +1,7 @@
 package main.museum;
 
-import main.utils.DateInputClass;
-import main.utils.MyFormatter;
-import main.utils.NationalRestDays;
+import main.utils.*;
 import main.utils.menus.RegularMenu;
-import main.utils.MyIOClass;
 import main.utils.menus.TicketTypeMenu;
 
 import java.time.LocalDate;
@@ -28,6 +25,7 @@ public class Museum {
     }
 
     private void startApp() {
+        System.out.println();
         MyIOClass.printMessage("Welcome our reservation system.");
         this.mainLoop();
     }
@@ -46,6 +44,7 @@ public class Museum {
                     this.adminPanel();
                     break;
                 default:
+                    System.out.println(ConsoleColors.RESET);
                     return;
             }
         }
@@ -63,12 +62,12 @@ public class Museum {
 
             int freeTicketsAmount = this.checkFreeTicketsAmount(ticketDate);
             if (freeTicketsAmount == 0) {
-                MyIOClass.printMessage("Sorry, there are no free tickets for this date.");
+                MyIOClass.printErrorMessage("Sorry, there are no free tickets for this date.");
                 return;
             }
 
             if (nationalRestDays.isRestDay(ticketDate)) {
-                MyIOClass.printMessage("Sorry, our museum is closed this date.");
+                MyIOClass.printErrorMessage("Sorry, our museum is closed this date.");
                 return;
             }
 
@@ -77,16 +76,15 @@ public class Museum {
 
             System.out.println();
             int maxTicketsValue = Math.min(3, freeTicketsAmount);
-            int ticketAmount = MyIOClass.intInputValidationBetween("How many tickets you want to buy? (min: 1, max: " + maxTicketsValue + "): ", "Enter a valid number: ", 1, maxTicketsValue);
+            int ticketAmount = MyIOClass.intInputValidationBetween("How many tickets you want to buy? " + ConsoleColors.YELLOW + "(min: 1, max: " + maxTicketsValue + ")" + ConsoleColors.RESET + ": ", "Enter a valid number: ", 1, maxTicketsValue);
 
             Ticket ticket = new Ticket(ticketDate, ticketType, ticketAmount);
 
             invoice.addTickets(ticket);
 
-            System.out.println();
-
-            boolean isAnotherTicket = MyIOClass.answerYesNo("Do you want buy another tickets? (y/n) ");
+            boolean isAnotherTicket = MyIOClass.answerYesNo("Do you want buy another tickets?");
             if (!isAnotherTicket) {
+                System.out.println();
                 break;
             }
 
