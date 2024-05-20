@@ -1,13 +1,8 @@
-package main;
-
-import main.utils.MyIOClass;
-import main.utils.MyIOClassLogic;
-import main.museum.TicketTypes;
+package main.utils;
 
 import java.time.LocalDate;
 
-public class Menus {
-
+public class DateInputClass {
     public static LocalDate getTicketDate(int monthToAdd) {
 
         int year = getYearInput(monthToAdd);
@@ -48,7 +43,6 @@ public class Menus {
             minMonth = 1;
             maxMonth = LocalDate.now().plusMonths(monthToAdd).getMonthValue();
         }
-
         String monthTextMessage = "Choose a month (min: " + minMonth + ", max: " + maxMonth + "): ";
 
         return MyIOClass.intInputValidationBetween(monthTextMessage, "Please enter a valid month: ", minMonth, maxMonth);
@@ -67,15 +61,5 @@ public class Menus {
         int maxDayInTwoMonth = LocalDate.of(year, month, 1).plusMonths(2).lengthOfMonth();
 
         return month == LocalDate.now().plusMonths(monthToAdd).getMonthValue() ? Math.min(result, maxDayInTwoMonth) : LocalDate.of(year, month, 1).lengthOfMonth();
-    }
-
-    public static String[] makeTicketTypeArr() {
-        TicketTypes[] ticketTypes = TicketTypes.values();
-        String[] result = new String[ticketTypes.length];
-        for (int i = 0; i < ticketTypes.length; i++) {
-            result[i] = MyIOClassLogic.capitalizedFirstChar(ticketTypes[i].name().toLowerCase().replace("_", " "));
-        }
-
-        return result;
     }
 }
