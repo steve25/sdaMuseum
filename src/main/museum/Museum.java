@@ -1,8 +1,8 @@
 package main.museum;
 
 import main.utils.*;
-import main.utils.menus.RegularMenu;
-import main.utils.menus.TicketTypeMenu;
+import main.menus.RegularMenu;
+import main.menus.TicketTypeMenu;
 
 import java.time.LocalDate;
 
