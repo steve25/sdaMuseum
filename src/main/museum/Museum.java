@@ -7,8 +7,8 @@ import main.utils.menus.TicketTypeMenu;
 import java.time.LocalDate;
 
 public class Museum {
-    Invoice invoice = new Invoice();
-    NationalRestDays nationalRestDays;
+    private final Invoice invoice = new Invoice();
+    private final NationalRestDays nationalRestDays;
 
     private final int ticketLimitPerDay;
     private final int monthAheadToBuy;
