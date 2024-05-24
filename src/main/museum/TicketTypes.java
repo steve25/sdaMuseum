@@ -1,36 +1,30 @@
 package main.museum;
 
 public enum TicketTypes {
-    REGULAR("Regular", 5),
+    REGULAR("Regular", 5, false),
     HEALTH_DISORDERS("Health disorders", 0.5, true),
-    SENIOR("Senior", 1),
-    JUNIOR("Junior", 2),
+    SENIOR("Senior", 1, false),
+    JUNIOR("Junior", 2, false),
     STUDENTS("Students", 0.7, true);
 
-    private final String ticketName;
-    private final double price;
-    private final boolean hasDiscount;
+    private final String ticketHumanReadableName;
+    private final double value;
+    private final boolean isPercentageValue;
 
-    TicketTypes(String ticketName, double price) {
-        this.ticketName = ticketName;
-        this.price = price;
-        this.hasDiscount = false;
-    }
-
-    TicketTypes(String ticketName, double price, boolean hasDiscount) {
-        this.ticketName = ticketName;
-        this.price = price;
-        this.hasDiscount = hasDiscount;
+    TicketTypes(String ticketName, double value, boolean isPercentageValue) {
+        this.ticketHumanReadableName = ticketName;
+        this.value = value;
+        this.isPercentageValue = isPercentageValue;
     }
 
     public double calculatePrize() {
-        if (hasDiscount)
-            return REGULAR.price * this.price;
+        if (isPercentageValue)
+            return REGULAR.value * this.value;
 
-        return this.price;
+        return this.value;
     }
 
-    public String getTicketName() {
-        return this.ticketName;
+    public String getTicketHumanReadableName() {
+        return this.ticketHumanReadableName;
     }
 }
