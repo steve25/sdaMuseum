@@ -1,5 +1,6 @@
 package main.museum;
 
+import main.menus.Menu;
 import main.utils.*;
 import main.menus.RegularMenu;
 import main.menus.TicketTypeMenu;
@@ -32,7 +33,7 @@ public class Museum {
 
     private void mainLoop() {
         while (true) {
-            RegularMenu mainRegularMenu = new RegularMenu(new String[]{"Buy tickets", "Admin panel", "Exit"});
+            Menu<Integer> mainRegularMenu = new RegularMenu(new String[]{"Buy tickets", "Admin panel", "Exit"});
             int result = mainRegularMenu.getResult();
             System.out.println();
 
@@ -71,8 +72,10 @@ public class Museum {
                 return;
             }
 
-            TicketTypeMenu ticketTypeRegularMenu = new TicketTypeMenu("Which type of ticket you want to buy?");
-            String ticketType = ticketTypeRegularMenu.getResult();
+            Menu<String> ticketTypeMenu = new TicketTypeMenu("Which type of ticket you want to buy?");
+            String ticketType = ticketTypeMenu.getResult();
+
+            System.out.println(ticketType);
 
             System.out.println();
             int maxTicketsValue = Math.min(3, freeTicketsAmount);
@@ -94,7 +97,7 @@ public class Museum {
 
     private void adminPanel() {
         while (true) {
-            RegularMenu adminPanelRegularMenu = new RegularMenu(new String[]{"Tickets sold - all time", "Tickets sold - month", "Tickets sold - day", "Cancel"});
+            Menu<Integer> adminPanelRegularMenu = new RegularMenu(new String[]{"Tickets sold - all time", "Tickets sold - month", "Tickets sold - day", "Cancel"});
             int result = adminPanelRegularMenu.getResult();
             System.out.println();
 
