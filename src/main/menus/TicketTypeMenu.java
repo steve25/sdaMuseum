@@ -26,7 +26,7 @@ public class TicketTypeMenu extends Menu<String> {
             System.out.printf(
                     ConsoleColors.YELLOW + "%d" +
                             ConsoleColors.RESET + ": %s - %s Eur%n",
-                    count, ticket.getTicketName(),
+                    count, ticket.getTicketHumanReadableName(),
                     MyFormatter.formatTwoDecimal(ticket.calculatePrize()));
             count++;
         }

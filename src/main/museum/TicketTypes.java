@@ -7,12 +7,12 @@ public enum TicketTypes {
     JUNIOR("Junior", 2, false),
     STUDENTS("Students", 0.7, true);
 
-    private final String ticketName;
+    private final String ticketHumanReadableName;
     private final double value;
     private final boolean isPercentageValue;
 
     TicketTypes(String ticketName, double value, boolean isPercentageValue) {
-        this.ticketName = ticketName;
+        this.ticketHumanReadableName = ticketName;
         this.value = value;
         this.isPercentageValue = isPercentageValue;
     }
@@ -24,7 +24,7 @@ public enum TicketTypes {
         return this.value;
     }
 
-    public String getTicketName() {
-        return this.ticketName;
+    public String getTicketHumanReadableName() {
+        return this.ticketHumanReadableName;
     }
 }
