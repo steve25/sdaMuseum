@@ -39,15 +39,21 @@ public class MyIOClass {
             }
 
         } while (result < minValue || result > maxValue);
+        sc.nextLine();
 
         return result;
     }
 
     public static boolean answerYesNo(String question) {
         System.out.print(ConsoleColors.CYAN + question + ConsoleColors.YELLOW + " (y/n) " + ConsoleColors.YELLOW);
-        String answer = sc.next();
+        String answer = sc.nextLine();
 
         return answer.equalsIgnoreCase("y");
+    }
+
+    public static String getStringInput(String question) {
+        System.out.print(ConsoleColors.CYAN + question + ConsoleColors.RESET + ": ");
+        return sc.nextLine();
     }
 
     public static String printTicketsSoldMonth(Museum museum) {
