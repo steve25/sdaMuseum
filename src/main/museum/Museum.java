@@ -18,10 +18,8 @@ public class Museum {
         this.ticketLimitPerDay = ticketLimitPerDay;
         this.monthAheadToBuy = monthAheadToBuy;
 
-        System.out.println();
-        System.out.print("Downloading slovak national rest days...");
         nationalRestDays = new NationalRestDays(LocalDate.now().plusMonths(this.monthAheadToBuy).getYear());
-        System.out.print(" done\n");
+
         this.startApp();
     }
 
@@ -105,18 +103,23 @@ public class Museum {
                             MyFormatter.formatDate(ticketDate)
             );
         }
+
+        Customer customer = getCustomer();
+        invoice.setCustomer(customer);
+        invoiceManager.addInvoice(invoice);
+        invoice.printSummary();
+    }
+
+    private static Customer getCustomer() {
         System.out.println();
+
         String customerName = MyIOClass.getStringInput("Your name");
         String customerAddress = MyIOClass.getStringInput("Your address");
         String customerEmail = MyIOClass.getStringInput("Your email");
 
-        Customer customer = new Customer(customerName, customerAddress, customerEmail);
-
-        invoice.setCustomer(customer);
-        invoiceManager.addInvoice(invoice);
         System.out.println();
 
-        invoice.printSummary();
+        return new Customer(customerName, customerAddress, customerEmail);
     }
 
     private void adminPanel() {

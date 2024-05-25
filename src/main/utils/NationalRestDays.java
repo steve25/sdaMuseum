@@ -14,26 +14,24 @@ public class NationalRestDays {
     private int restDaysCount = 0;
 
     public NationalRestDays(int year) {
-        Elements downloadedRestDays = this.downloadRestDays(year);
+        System.out.println();
+        System.out.print("Downloading slovak national rest days...");
+
         try {
+            Elements downloadedRestDays = this.downloadRestDays(year);
             this.restDaysCount = downloadedRestDays.size();
             this.restDays = this.setRestDays(downloadedRestDays);
-        } catch (NullPointerException e) {
-            System.err.println("Cant create holidays dates");
+            System.out.print(" done\n");
+        } catch (IOException e) {
+            System.err.print("Cant download holidays dates\n");
         }
     }
 
-    private Elements downloadRestDays(int year) {
+    private Elements downloadRestDays(int year) throws IOException {
         String url = "https://kalendar.aktuality.sk/sviatky/" + year + "/";
-        Elements days = null;
-        try {
-            Document document = Jsoup.connect(url).get();
-            days = document.select("td.value > a");
-        } catch (IOException e) {
-            System.err.println("Cant download holidays dates!");
-        }
+        Document document = Jsoup.connect(url).get();
 
-        return days;
+        return document.select("td.value > a");
     }
 
     private LocalDate[] setRestDays(Elements restDays) {
