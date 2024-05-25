@@ -55,10 +55,11 @@ public class Museum {
     private void buyTicketLoop() {
         boolean isSameDate = false;
         LocalDate ticketDate = null;
+        DateInputClass ticketDateInput = new DateInputClass(this.monthAheadToBuy);
 
         while (true) {
             if (!isSameDate) {
-                ticketDate = DateInputClass.getTicketDate(this.monthAheadToBuy);
+                ticketDate = ticketDateInput.getTicketDate();
             }
 
             int freeTicketsAmount = this.checkFreeTicketsAmount(ticketDate);
