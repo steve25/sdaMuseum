@@ -75,11 +75,13 @@ public class Museum {
             Menu<String> ticketTypeMenu = new TicketTypeMenu("Which type of ticket you want to buy?");
             String ticketType = ticketTypeMenu.getResult();
 
-            System.out.println(ticketType);
-
             System.out.println();
             int maxTicketsValue = Math.min(3, freeTicketsAmount);
-            int ticketAmount = MyIOClass.intInputValidationBetween("How many tickets you want to buy? " + ConsoleColors.YELLOW + "(min: 1, max: " + maxTicketsValue + ")" + ConsoleColors.RESET + ": ", "Enter a valid number: ", 1, maxTicketsValue);
+            int ticketAmount = MyIOClass.intInputValidationBetween(
+                    "How many tickets you want to buy? " + ConsoleColors.YELLOW +
+                            "(min: 1, max: " + maxTicketsValue + ")" + ConsoleColors.RESET + ": ",
+                    "Enter a valid number: ",
+                    1, maxTicketsValue);
 
             Ticket ticket = new Ticket(ticketDate, ticketType, ticketAmount);
 
@@ -91,7 +93,10 @@ public class Museum {
                 break;
             }
 
-            isSameDate = MyIOClass.answerYesNo("Do you want buy a tickets for the same date? - " + MyFormatter.formatDate(ticketDate) + " (y/n) ");
+            isSameDate = MyIOClass.answerYesNo(
+                    "Do you want buy a tickets for the same date? - " +
+                            MyFormatter.formatDate(ticketDate) + " (y/n) "
+            );
         }
     }
 
