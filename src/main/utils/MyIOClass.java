@@ -51,7 +51,8 @@ public class MyIOClass {
     }
 
     public static String printTicketsSoldMonth(Museum museum) {
-        LocalDate date = DateInputClass.getTicketDateMonth(museum.getMonthAheadToBuy());
+        DateInputClass ticketDateInput = new DateInputClass(museum.getMonthAheadToBuy());
+        LocalDate date = ticketDateInput.getTicketDateMonth();
         int ticketCountPerMonth = museum.getTicketCountPerMonth(date);
         double ticketCountPerMonthPercentage = museum.getTicketCountPerMonthPercentage(date, ticketCountPerMonth);
 
@@ -59,7 +60,8 @@ public class MyIOClass {
     }
 
     public static String printTicketsSoldDay(Museum museum) {
-        LocalDate date = DateInputClass.getTicketDate(museum.getMonthAheadToBuy());
+        DateInputClass ticketDateInput = new DateInputClass(museum.getMonthAheadToBuy());
+        LocalDate date = ticketDateInput.getTicketDate();
         int ticketCountPerDay = museum.getTicketCountPerDay(date);
         double ticketCountPerDayPercentage = museum.getTicketCountPerDayPercentage(ticketCountPerDay);
 
