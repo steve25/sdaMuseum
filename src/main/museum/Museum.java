@@ -8,8 +8,8 @@ import main.menus.TicketTypeMenu;
 import java.time.LocalDate;
 
 public class Museum {
-    private final Invoice invoice = new Invoice();
     private final NationalRestDays nationalRestDays;
+    private final InvoiceManager invoiceManager = new InvoiceManager();
 
     private final int ticketLimitPerDay;
     private final int monthAheadToBuy;
@@ -17,7 +17,11 @@ public class Museum {
     public Museum(int ticketLimitPerDay, int monthAheadToBuy) {
         this.ticketLimitPerDay = ticketLimitPerDay;
         this.monthAheadToBuy = monthAheadToBuy;
+
+        System.out.println();
+        System.out.print("Downloading slovak national rest days...");
         nationalRestDays = new NationalRestDays(LocalDate.now().plusMonths(this.monthAheadToBuy).getYear());
+        System.out.print(" done\n");
         this.startApp();
     }
 
@@ -54,7 +58,9 @@ public class Museum {
 
     private void buyTicketLoop() {
         boolean isSameDate = false;
+        int currentTicketCount = 0;
         LocalDate ticketDate = null;
+        Invoice invoice = new Invoice();
         DateInputClass ticketDateInput = new DateInputClass(this.monthAheadToBuy);
 
         while (true) {
@@ -62,15 +68,15 @@ public class Museum {
                 ticketDate = ticketDateInput.getTicketDate();
             }
 
-            int freeTicketsAmount = this.checkFreeTicketsAmount(ticketDate);
-            if (freeTicketsAmount == 0) {
+            int freeTicketsAmount = this.checkFreeTicketsAmount(ticketDate) - currentTicketCount;
+            if (freeTicketsAmount <= 0) {
                 MyIOClass.printErrorMessage("Sorry, there are no free tickets for this date.");
-                return;
+                break;
             }
 
             if (nationalRestDays.isRestDay(ticketDate)) {
                 MyIOClass.printErrorMessage("Sorry, our museum is closed this date.");
-                return;
+                break;
             }
 
             Menu<String> ticketTypeMenu = new TicketTypeMenu("Which type of ticket you want to buy?");
@@ -83,6 +89,7 @@ public class Museum {
                             "(min: 1, max: " + maxTicketsValue + ")" + ConsoleColors.RESET + ": ",
                     "Enter a valid number: ",
                     1, maxTicketsValue);
+            currentTicketCount += ticketAmount;
 
             Ticket ticket = new Ticket(ticketDate, ticketType, ticketAmount);
 
@@ -90,15 +97,26 @@ public class Museum {
 
             boolean isAnotherTicket = MyIOClass.answerYesNo("Do you want buy another tickets?");
             if (!isAnotherTicket) {
-                System.out.println();
                 break;
             }
 
             isSameDate = MyIOClass.answerYesNo(
                     "Do you want buy a tickets for the same date? - " +
-                            MyFormatter.formatDate(ticketDate) + " (y/n) "
+                            MyFormatter.formatDate(ticketDate)
             );
         }
+        System.out.println();
+        String customerName = MyIOClass.getStringInput("Your name");
+        String customerAddress = MyIOClass.getStringInput("Your address");
+        String customerEmail = MyIOClass.getStringInput("Your email");
+
+        Customer customer = new Customer(customerName, customerAddress, customerEmail);
+
+        invoice.setCustomer(customer);
+        invoiceManager.addInvoice(invoice);
+        System.out.println();
+
+        invoice.printSummary();
     }
 
     private void adminPanel() {
@@ -126,9 +144,12 @@ public class Museum {
     private int checkFreeTicketsAmount(LocalDate date) {
         int result = 0;
 
-        for (Ticket ticket : invoice.getTickets()) {
-            if (ticket.ticketDate().equals(date)) {
-                result += ticket.ticketAmount();
+        for (Invoice invoice : invoiceManager.getInvoices()) {
+            for (Ticket ticket : invoice.getTickets()) {
+                System.out.println(ticket.ticketType());
+                if (ticket.ticketDate().equals(date)) {
+                    result += ticket.ticketAmount();
+                }
             }
         }
 
@@ -138,8 +159,10 @@ public class Museum {
     private int allTimeTicketsSold() {
         int result = 0;
 
-        for (Ticket ticket : this.invoice.getTickets()) {
-            result += ticket.ticketAmount();
+        for (Invoice invoice : invoiceManager.getInvoices()) {
+            for (Ticket ticket : invoice.getTickets()) {
+                result += ticket.ticketAmount();
+            }
         }
 
         return result;
@@ -148,13 +171,14 @@ public class Museum {
     public int getTicketCountPerMonth(LocalDate date) {
         int result = 0;
 
-        for (Ticket ticket : this.invoice.getTickets()) {
-            if (ticket.ticketDate().getMonthValue() == date.getMonthValue() &&
-                    ticket.ticketDate().getYear() == date.getYear()) {
-                result += ticket.ticketAmount();
+        for (Invoice invoice : invoiceManager.getInvoices()) {
+            for (Ticket ticket : invoice.getTickets()) {
+                if (ticket.ticketDate().getMonthValue() == date.getMonthValue() &&
+                        ticket.ticketDate().getYear() == date.getYear()) {
+                    result += ticket.ticketAmount();
+                }
             }
         }
-
         return result;
     }
 
@@ -166,7 +190,10 @@ public class Museum {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * (totalDays - actualDay))) * 100;
         }
 
-        if (LocalDate.of(LocalDate.now().getYear(), LocalDate.now().plusMonths(this.monthAheadToBuy).getMonthValue(), 1).getMonthValue() == date.getMonthValue()) {
+        if (LocalDate.of(
+                        LocalDate.now().getYear(), LocalDate.now()
+                                .plusMonths(this.monthAheadToBuy).getMonthValue(), 1)
+                .getMonthValue() == date.getMonthValue()) {
             return ((double) totalSoldTicket / (this.ticketLimitPerDay * actualDay)) * 100;
         }
 
@@ -176,11 +203,13 @@ public class Museum {
     public int getTicketCountPerDay(LocalDate date) {
         int result = 0;
 
-        for (Ticket ticket : this.invoice.getTickets()) {
-            if (ticket.ticketDate().getDayOfMonth() == date.getDayOfMonth() &&
-                    ticket.ticketDate().getMonthValue() == date.getMonthValue() &&
-                    ticket.ticketDate().getYear() == date.getYear()) {
-                result += ticket.ticketAmount();
+        for (Invoice invoice : invoiceManager.getInvoices()) {
+            for (Ticket ticket : invoice.getTickets()) {
+                if (ticket.ticketDate().getDayOfMonth() == date.getDayOfMonth() &&
+                        ticket.ticketDate().getMonthValue() == date.getMonthValue() &&
+                        ticket.ticketDate().getYear() == date.getYear()) {
+                    result += ticket.ticketAmount();
+                }
             }
         }
 
