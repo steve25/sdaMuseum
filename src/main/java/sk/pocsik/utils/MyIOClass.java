@@ -1,6 +1,7 @@
-package main.utils;
+package sk.pocsik.utils;
 
-import main.museum.Museum;
+
+import sk.pocsik.museum.Museum;
 
 import java.time.LocalDate;
 import java.util.Scanner;

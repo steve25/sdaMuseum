@@ -1,4 +1,4 @@
-package main.museum;
+package sk.pocsik.museum;
 
 public enum TicketTypes {
     REGULAR("Regular", 5, false),

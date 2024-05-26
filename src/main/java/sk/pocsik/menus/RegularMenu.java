@@ -1,6 +1,7 @@
-package main.menus;
+package sk.pocsik.menus;
 
-import main.utils.ConsoleColors;
+
+import sk.pocsik.utils.ConsoleColors;
 
 public class RegularMenu extends Menu<Integer>{
 

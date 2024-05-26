@@ -1,7 +1,7 @@
-package main.museum;
+package sk.pocsik.museum;
 
-import main.utils.MyFormatter;
-import main.utils.MyIOClass;
+
+import sk.pocsik.utils.MyFormatter;
 
 import java.util.ArrayList;
 
@@ -24,11 +24,11 @@ public class Invoice {
     public void printSummary() {
         System.out.println(
                 "Ticket owner: " +
-                this.customer.getName() +
+                this.customer.name() +
                 ", " +
-                this.customer.getAddress() +
+                this.customer.address() +
                 ", " +
-                this.customer.getEmail());
+                this.customer.email());
         System.out.println("_".repeat(20));
         for (Ticket ticket : this.tickets) {
             System.out.println(

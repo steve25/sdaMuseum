@@ -1,4 +1,4 @@
-package main.utils;
+package sk.pocsik.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

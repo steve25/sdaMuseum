@@ -1,4 +1,4 @@
-package main.utils;
+package sk.pocsik.utils;
 
 public class ConsoleColors {
     // Reset

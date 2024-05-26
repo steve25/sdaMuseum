@@ -1,9 +1,9 @@
-package main.utils;
+package sk.pocsik.utils;
 
 import java.time.LocalDate;
 
 public class DateInputClass {
-    int monthToAdd;
+    final int monthToAdd;
     int ticketYear;
     int ticketMonth;
     int ticketDay;
