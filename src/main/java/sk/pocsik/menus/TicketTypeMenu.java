@@ -1,8 +1,9 @@
-package main.menus;
+package sk.pocsik.menus;
 
-import main.museum.TicketTypes;
-import main.utils.ConsoleColors;
-import main.utils.MyFormatter;
+
+import sk.pocsik.museum.TicketTypes;
+import sk.pocsik.utils.ConsoleColors;
+import sk.pocsik.utils.MyFormatter;
 
 public class TicketTypeMenu extends Menu<String> {
 

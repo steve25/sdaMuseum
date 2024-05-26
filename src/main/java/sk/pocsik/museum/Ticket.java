@@ -1,4 +1,4 @@
-package main.museum;
+package sk.pocsik.museum;
 
 import java.time.LocalDate;
 

@@ -1,9 +1,9 @@
-package main.museum;
+package sk.pocsik.museum;
 
-import main.menus.Menu;
-import main.utils.*;
-import main.menus.RegularMenu;
-import main.menus.TicketTypeMenu;
+import sk.pocsik.menus.Menu;
+import sk.pocsik.menus.RegularMenu;
+import sk.pocsik.menus.TicketTypeMenu;
+import sk.pocsik.utils.*;
 
 import java.time.LocalDate;
 
@@ -19,15 +19,13 @@ public class Museum {
         this.monthAheadToBuy = monthAheadToBuy;
 
         nationalRestDays = new NationalRestDays(LocalDate.now().plusMonths(this.monthAheadToBuy).getYear());
-
-        this.startApp();
     }
 
     public int getMonthAheadToBuy() {
         return monthAheadToBuy;
     }
 
-    private void startApp() {
+    public void startApp() {
         System.out.println();
         MyIOClass.printMessage("Welcome our reservation system.");
         this.mainLoop();

@@ -1,7 +1,7 @@
-package main.menus;
+package sk.pocsik.menus;
 
-import main.utils.ConsoleColors;
-import main.utils.MyIOClass;
+import sk.pocsik.utils.ConsoleColors;
+import sk.pocsik.utils.MyIOClass;
 
 public abstract class Menu<T> {
     protected final String question;

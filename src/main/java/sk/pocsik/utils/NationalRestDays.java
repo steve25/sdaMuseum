@@ -1,4 +1,4 @@
-package main.utils;
+package sk.pocsik.utils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,6 +25,10 @@ public class NationalRestDays {
         } catch (IOException e) {
             System.err.print("Cant download holidays dates\n");
         }
+    }
+
+    public LocalDate[] getRestDays() {
+        return restDays;
     }
 
     private Elements downloadRestDays(int year) throws IOException {
