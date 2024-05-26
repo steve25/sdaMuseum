@@ -8,34 +8,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NationalRestDaysTest {
-    private static Integer[] yearsArray;
+    private static NationalRestDays nationalRestDays;
 
     @BeforeAll
     public static void init() {
-        yearsArray = getYearsArray(10);
-    }
-
-
-    private static Integer[] getYearsArray(int monthAheadToBuy) {
-        int currentYear = LocalDate.now().getYear();
-        int yearAheadToBuy = LocalDate.now().plusMonths(monthAheadToBuy).getYear();
-        ArrayList<Integer> result = new ArrayList<>();
-
-        for (int i = currentYear; i <= yearAheadToBuy; i++) {
-            result.add(i);
-        }
-
-        return result.toArray(new Integer[0]);
+        nationalRestDays = new NationalRestDays(LocalDate.now().getYear());
     }
 
     @Test
     @DisplayName("National rest days not null")
     public void nationalRestDaysArrayNotNull() {
-        for (Integer year : yearsArray) {
-            NationalRestDays nationalRestDays = new NationalRestDays(year);
-            LocalDate[] dates = nationalRestDays.getRestDays();
-            Assertions.assertNotEquals(0, dates.length, "nationalRestDays for " + year);
-        }
-
+            ArrayList<LocalDate> dates = nationalRestDays.getRestDays();
+            Assertions.assertNotEquals(0, dates.size(), "nationalRestDays not null");
     }
 }

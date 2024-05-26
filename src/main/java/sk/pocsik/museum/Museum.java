@@ -60,6 +60,7 @@ public class Museum {
         DateInputClass ticketDateInput = new DateInputClass(this.monthAheadToBuy);
 
         while (true) {
+
             if (!isSameDate) {
                 ticketDate = ticketDateInput.getTicketDate();
             }
@@ -67,12 +68,12 @@ public class Museum {
             int freeTicketsAmount = this.checkFreeTicketsAmount(ticketDate) - currentTicketCount;
             if (freeTicketsAmount <= 0) {
                 MyIOClass.printErrorMessage("Sorry, there are no free tickets for this date.");
-                break;
+                continue;
             }
 
             if (nationalRestDays.isRestDay(ticketDate)) {
                 MyIOClass.printErrorMessage("Sorry, our museum is closed this date.");
-                break;
+                continue;
             }
 
             Menu<String> ticketTypeMenu = new TicketTypeMenu("Which type of ticket you want to buy?");
@@ -93,6 +94,10 @@ public class Museum {
 
             boolean isAnotherTicket = MyIOClass.answerYesNo("Do you want buy another tickets?");
             if (!isAnotherTicket) {
+                Customer customer = getCustomer();
+                invoice.setCustomer(customer);
+                invoiceManager.addInvoice(invoice);
+                invoice.printSummary();
                 break;
             }
 
@@ -101,12 +106,8 @@ public class Museum {
                             MyFormatter.formatDate(ticketDate)
             );
         }
-
-        Customer customer = getCustomer();
-        invoice.setCustomer(customer);
-        invoiceManager.addInvoice(invoice);
-        invoice.printSummary();
     }
+
 
     private static Customer getCustomer() {
         System.out.println();

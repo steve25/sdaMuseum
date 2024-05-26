@@ -8,26 +8,29 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class NationalRestDays {
-    private LocalDate[] restDays = null;
-    private int restDaysCount = 0;
+    private final ArrayList<LocalDate> restDays = new ArrayList<>();
 
     public NationalRestDays(int year) {
         System.out.println();
         System.out.print("Downloading slovak national rest days...");
 
-        try {
-            Elements downloadedRestDays = this.downloadRestDays(year);
-            this.restDaysCount = downloadedRestDays.size();
-            this.restDays = this.setRestDays(downloadedRestDays);
-            System.out.print(" done\n");
-        } catch (IOException e) {
-            System.err.print("Cant download holidays dates\n");
-        }
+        do {
+            try {
+                Elements downloadedRestDays = this.downloadRestDays(year);
+                this.setRestDays(downloadedRestDays);
+                year--;
+            } catch (IOException e) {
+                System.err.print("Cant download holidays dates\n");
+            }
+        } while (year == LocalDate.now().getYear());
+
+        System.out.print(" done\n");
     }
 
-    public LocalDate[] getRestDays() {
+    public ArrayList<LocalDate> getRestDays() {
         return restDays;
     }
 
@@ -38,13 +41,10 @@ public class NationalRestDays {
         return document.select("td.value > a");
     }
 
-    private LocalDate[] setRestDays(Elements restDays) {
-        LocalDate[] result = new LocalDate[this.restDaysCount];
-        for (int i = 0; i < restDays.size(); i++) {
-            result[i] = this.formatToLocalDate(restDays.get(i));
+    private void setRestDays(Elements restDaysElement) {
+        for (Element element : restDaysElement) {
+            restDays.add(this.formatToLocalDate(element));
         }
-
-        return result;
     }
 
     private LocalDate formatToLocalDate(Element day) {
@@ -65,7 +65,8 @@ public class NationalRestDays {
 
     public boolean isRestDay(LocalDate buyDate) {
         for (LocalDate restDate : this.restDays) {
-            if (restDate.equals(buyDate)) return true;
+            if (restDate.equals(buyDate))
+                return true;
         }
 
         return false;
