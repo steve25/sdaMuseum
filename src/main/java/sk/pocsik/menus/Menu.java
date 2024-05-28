@@ -25,6 +25,7 @@ public abstract class Menu<T> {
         }
 
         this.printItems();
+
         int choice = MyIOClass.intInputValidationBetween(
                 "Enter your choice: ",
                 "Please enter a valid number: ",
